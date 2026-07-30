@@ -1,4 +1,4 @@
-from playwright.sync_api import sync_playwright, expect
+from playwright.sync_api import sync_playwright
 
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=False)
@@ -7,6 +7,6 @@ with sync_playwright() as playwright:
 
     registration_link = page.get_by_test_id('login-page-registration-link')
     registration_link.hover()
-    expect(registration_link).is_hovering()
+    assert registration_link.evaluate('el => el.matches(":hover")')
 
     page.wait_for_timeout(5000)
